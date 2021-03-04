@@ -1,0 +1,17 @@
+baseURL = "http://blog.eosrce.com/"
+copyright = "Copyright (c) 2021, Steve Francia; all rights reserved."
+languageCode = "zh-CN"
+theme = "Comet"
+title = "E#Index - Comet."
+googleAnalyticsID = ""
+
+[author]
+facebook = ""
+github = "Example-A"
+instagram = ""
+linkedin = ""
+name = "E#"
+twitter = ""
+
+[params]
+highlight = "monokai-sublime"
