@@ -1,8 +1,8 @@
 baseURL = "http://blog.eosrce.com/"
 copyright = "Copyright (c) 2021, Steve Francia; all rights reserved."
 languageCode = "zh-CN"
-theme = "Comet"
-title = "E#Index - Comet."
+theme = "stack"
+title = "E#Index"
 googleAnalyticsID = ""
 
 [author]
