@@ -789,6 +789,160 @@ C:\&amp;gt; mysqld -remove mysql // 卸载
     &gt;MySQL 5.7 解压版 安装教程&lt;/a&gt;&lt;/p&gt;</description>
         </item>
         <item>
+        <title>【实验笔记】Windows Server 2003 NTFS 权限管理</title>
+        <link>https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</link>
+        <pubDate>Fri, 04 Sep 2020 00:00:00 +0000</pubDate>
+        
+        <guid>https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</guid>
+        <description>&lt;img src="https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95.png" alt="Featured image of post 【实验笔记】Windows Server 2003 NTFS 权限管理" /&gt;&lt;p&gt;简介&lt;/p&gt;
+&lt;h2 id=&#34;创建新用户&#34;&gt;创建新用户&lt;/h2&gt;
+&lt;p&gt;右键“我的电脑”，点击“管理”进入计算机管理页面。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 68; flex-basis: 164px&#34;&gt;
+		&lt;a href=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%89%93%E5%BC%80%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86.png&#34; data-size=&#34;272x398&#34;&gt;&lt;img src=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%89%93%E5%BC%80%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86.png&#34;
+				srcset=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%89%93%E5%BC%80%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86_hu2c02fff2a0fd18f2a2551add21689331_14426_480x0_resize_box_2.png 480w, https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%89%93%E5%BC%80%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86_hu2c02fff2a0fd18f2a2551add21689331_14426_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;272&#34;
+				height=&#34;398&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;打开系统管理&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;打开系统管理&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;依次展开“计算机管理（本地）” -&amp;gt; “系统工具” -&amp;gt; “本地用户和租 -&amp;gt; “用户”，并新建一个用户，账户名密码随意。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 134; flex-basis: 323px&#34;&gt;
+		&lt;a href=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7.png&#34; data-size=&#34;715x530&#34;&gt;&lt;img src=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7.png&#34;
+				srcset=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7_hu4f98f0b43c96884c520f3f8730e9e90e_37049_480x0_resize_box_2.png 480w, https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7_hu4f98f0b43c96884c520f3f8730e9e90e_37049_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;715&#34;
+				height=&#34;530&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;新建用户&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;新建用户&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 149; flex-basis: 357px&#34;&gt;
+		&lt;a href=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%AE%9A%E4%B9%89%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF.png&#34; data-size=&#34;886x594&#34;&gt;&lt;img src=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%AE%9A%E4%B9%89%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF.png&#34;
+				srcset=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%AE%9A%E4%B9%89%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF_hu54bbd38f5d15333c0043b6aafc08be4c_28800_480x0_resize_box_2.png 480w, https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%AE%9A%E4%B9%89%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF_hu54bbd38f5d15333c0043b6aafc08be4c_28800_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;886&#34;
+				height=&#34;594&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;定义用户信息&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;定义用户信息&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;账户创建成功后，右键“属性”，点击“隶属于”选项卡，确认账户的组为 &lt;code&gt;User&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 192; flex-basis: 461px&#34;&gt;
+		&lt;a href=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%BB%84%E4%BF%A1%E6%81%AF.png&#34; data-size=&#34;1071x557&#34;&gt;&lt;img src=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%BB%84%E4%BF%A1%E6%81%AF.png&#34;
+				srcset=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%BB%84%E4%BF%A1%E6%81%AF_huc26651b1df2fa7c346195ad7a853ede3_33907_480x0_resize_box_2.png 480w, https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%BB%84%E4%BF%A1%E6%81%AF_huc26651b1df2fa7c346195ad7a853ede3_33907_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;1071&#34;
+				height=&#34;557&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;查看用户组信息&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;查看用户组信息&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;随后注销系统，使用新注册的用户登录。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 180; flex-basis: 433px&#34;&gt;
+		&lt;a href=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95.png&#34; data-size=&#34;450x249&#34;&gt;&lt;img src=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95.png&#34;
+				srcset=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95_hu847be02ea54efc372c1b15840074db37_34648_480x0_resize_box_2.png 480w, https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95_hu847be02ea54efc372c1b15840074db37_34648_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;450&#34;
+				height=&#34;249&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;使用新用户登录&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;使用新用户登录&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&#34;尝试修改文件&#34;&gt;尝试修改文件&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;C:\public\www&lt;/code&gt; 目录是由 &lt;code&gt;TargetUser01&lt;/code&gt; 用户创建的，右键文件或文件夹点击”属性”，“安全”选项卡。可以看到 &lt;code&gt;Users&lt;/code&gt;组仅有读取和运行的权限。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 129; flex-basis: 311px&#34;&gt;
+		&lt;a href=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7.png&#34; data-size=&#34;830x639&#34;&gt;&lt;img src=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7.png&#34;
+				srcset=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7_hub1f2ae2e3756544f86918c5567465f64_43900_480x0_resize_box_2.png 480w, https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7_hub1f2ae2e3756544f86918c5567465f64_43900_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;830&#34;
+				height=&#34;639&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;编辑文件属性&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;编辑文件属性&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 149; flex-basis: 359px&#34;&gt;
+		&lt;a href=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90.png&#34; data-size=&#34;950x635&#34;&gt;&lt;img src=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90.png&#34;
+				srcset=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90_hu780aff0574fa14de247b88fbe0dbd7ef_54202_480x0_resize_box_2.png 480w, https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90_hu780aff0574fa14de247b88fbe0dbd7ef_54202_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;950&#34;
+				height=&#34;635&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;查看文件权限&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;查看文件权限&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;尝试编辑 &lt;code&gt;index.php&lt;/code&gt; 文件并保存后会提示“不能创建文件”，这是因为目前所使用的 &lt;code&gt;TargetUser02&lt;/code&gt; 用户没有写入权限。使用其他编辑器（如 Notepad++）则会提示使用管理员模式进行编辑。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 178; flex-basis: 429px&#34;&gt;
+		&lt;a href=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%B0%9D%E8%AF%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6.png&#34; data-size=&#34;1205x674&#34;&gt;&lt;img src=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%B0%9D%E8%AF%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6.png&#34;
+				srcset=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%B0%9D%E8%AF%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6_hu044d03b2ff97ed54401bf66b36220bfb_19422_480x0_resize_box_2.png 480w, https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%B0%9D%E8%AF%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6_hu044d03b2ff97ed54401bf66b36220bfb_19422_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;1205&#34;
+				height=&#34;674&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;尝试保存文件&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;尝试保存文件&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;想要编辑文件则需要为 &lt;code&gt;Users&lt;/code&gt; 组或 &lt;code&gt;TargetUser02&lt;/code&gt; 用户新增权限。&lt;/p&gt;
+&lt;p&gt;方法一：为整个 &lt;code&gt;Users&lt;/code&gt; 组新增写入权限。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 127; flex-basis: 306px&#34;&gt;
+		&lt;a href=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E8%B5%8B%E4%BA%88User%E7%BB%84%E6%9D%83%E9%99%90.png&#34; data-size=&#34;848x665&#34;&gt;&lt;img src=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E8%B5%8B%E4%BA%88User%E7%BB%84%E6%9D%83%E9%99%90.png&#34;
+				srcset=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E8%B5%8B%E4%BA%88User%E7%BB%84%E6%9D%83%E9%99%90_hu417c053a9a2afe0742500ccd8147a951_48679_480x0_resize_box_2.png 480w, https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E8%B5%8B%E4%BA%88User%E7%BB%84%E6%9D%83%E9%99%90_hu417c053a9a2afe0742500ccd8147a951_48679_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;848&#34;
+				height=&#34;665&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;赋予User组权限&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;赋予User组权限&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;方法二：将 &lt;code&gt;TargetUser02&lt;/code&gt; 用户设置为文件的所有者之一。&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 175; flex-basis: 421px&#34;&gt;
+		&lt;a href=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9B%B4%E6%94%B9%E6%89%80%E6%9C%89%E8%80%85.png&#34; data-size=&#34;1243x708&#34;&gt;&lt;img src=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9B%B4%E6%94%B9%E6%89%80%E6%9C%89%E8%80%85.png&#34;
+				srcset=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9B%B4%E6%94%B9%E6%89%80%E6%9C%89%E8%80%85_hu583dc583b92d7de48de4fd0d2b1492d9_67056_480x0_resize_box_2.png 480w, https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9B%B4%E6%94%B9%E6%89%80%E6%9C%89%E8%80%85_hu583dc583b92d7de48de4fd0d2b1492d9_67056_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;1243&#34;
+				height=&#34;708&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;更改所有者&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;更改所有者&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;p&gt;测试结果：&lt;/p&gt;
+&lt;p&gt;&lt;figure style=&#34;flex-grow: 180; flex-basis: 432px&#34;&gt;
+		&lt;a href=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%B5%8B%E8%AF%95%E6%9B%B4%E6%94%B9%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C.png&#34; data-size=&#34;1171x650&#34;&gt;&lt;img src=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%B5%8B%E8%AF%95%E6%9B%B4%E6%94%B9%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C.png&#34;
+				srcset=&#34;https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%B5%8B%E8%AF%95%E6%9B%B4%E6%94%B9%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C_hu769540b0e0a6660ef641a61a408cfe70_48632_480x0_resize_box_2.png 480w, https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%B5%8B%E8%AF%95%E6%9B%B4%E6%94%B9%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C_hu769540b0e0a6660ef641a61a408cfe70_48632_1024x0_resize_box_2.png 1024w&#34;
+				width=&#34;1171&#34;
+				height=&#34;650&#34;
+				loading=&#34;lazy&#34;
+				alt=&#34;测试更改后的结果&#34;&gt;
+		&lt;/a&gt;
+		
+		&lt;figcaption&gt;测试更改后的结果&lt;/figcaption&gt;
+		
+	&lt;/figure&gt;&lt;/p&gt;
+&lt;h2 id=&#34;后记&#34;&gt;后记&lt;/h2&gt;
+&lt;p&gt;如果目录下的所有文件都没有写入权限，则需对父目录进行权限增加或所有者修改的操作，具体方法与上述类似，不再赘述。另外，充分利用文件权限管理，可以对单个或多个用户及组进行权限限制。&lt;/p&gt;</description>
+        </item>
+        <item>
         <title>【实验笔记】Windows Server 2003 管理用户和组</title>
         <link>https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/</link>
         <pubDate>Wed, 02 Sep 2020 00:00:00 +0000</pubDate>

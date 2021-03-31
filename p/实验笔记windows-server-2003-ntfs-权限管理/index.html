@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='NTFS 权限管理'><title>【实验笔记】Windows Server 2003 NTFS 权限管理</title>
+
+<link rel='canonical' href='https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='【实验笔记】Windows Server 2003 NTFS 权限管理'>
+<meta property='og:description' content='NTFS 权限管理'>
+<meta property='og:url' content='https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/'>
+<meta property='og:site_name' content='E#Index'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ntfs' /><meta property='article:tag' content='windows server' /><meta property='article:tag' content='security' /><meta property='article:published_time' content='2020-09-04T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-09-04T00:00:00&#43;00:00'/><meta property='og:image' content='https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95.png' />
+<meta name="twitter:title" content="【实验笔记】Windows Server 2003 NTFS 权限管理">
+<meta name="twitter:description" content="NTFS 权限管理"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95.png' />
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu613943a9fc508fb36b4a333ce421fcf4_1176716_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🔰</span>
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://eosrce.com">E#Index</a></h1>
+        <h2 class="site-description">涸泽而渔。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>暗色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://eosrce.com" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+                <img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95_hu847be02ea54efc372c1b15840074db37_34648_800x0_resize_box_2.png"
+                        srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95_hu847be02ea54efc372c1b15840074db37_34648_800x0_resize_box_2.png 800w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95_hu847be02ea54efc372c1b15840074db37_34648_1600x0_resize_box_2.png 1600w"
+                        width="800" 
+                        height="443" 
+                        loading="lazy"
+                        alt="Featured image of post 【实验笔记】Windows Server 2003 NTFS 权限管理" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/note/" >
+                note
+            </a>
+        
+            <a href="/categories/test/" style="background-color: #2a9d8f; color: #fff;">
+                Test
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">【实验笔记】Windows Server 2003 NTFS 权限管理</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        NTFS 权限管理
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Sep 04, 2020</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p>简介</p>
+<h2 id="创建新用户">创建新用户</h2>
+<p>右键“我的电脑”，点击“管理”进入计算机管理页面。</p>
+<p><figure style="flex-grow: 68; flex-basis: 164px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%89%93%E5%BC%80%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86.png" data-size="272x398"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%89%93%E5%BC%80%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%89%93%E5%BC%80%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86_hu2c02fff2a0fd18f2a2551add21689331_14426_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%89%93%E5%BC%80%E7%B3%BB%E7%BB%9F%E7%AE%A1%E7%90%86_hu2c02fff2a0fd18f2a2551add21689331_14426_1024x0_resize_box_2.png 1024w"
+				width="272"
+				height="398"
+				loading="lazy"
+				alt="打开系统管理">
+		</a>
+		
+		<figcaption>打开系统管理</figcaption>
+		
+	</figure></p>
+<p>依次展开“计算机管理（本地）” -&gt; “系统工具” -&gt; “本地用户和租 -&gt; “用户”，并新建一个用户，账户名密码随意。</p>
+<p><figure style="flex-grow: 134; flex-basis: 323px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7.png" data-size="715x530"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7_hu4f98f0b43c96884c520f3f8730e9e90e_37049_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%96%B0%E5%BB%BA%E7%94%A8%E6%88%B7_hu4f98f0b43c96884c520f3f8730e9e90e_37049_1024x0_resize_box_2.png 1024w"
+				width="715"
+				height="530"
+				loading="lazy"
+				alt="新建用户">
+		</a>
+		
+		<figcaption>新建用户</figcaption>
+		
+	</figure></p>
+<p><figure style="flex-grow: 149; flex-basis: 357px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%AE%9A%E4%B9%89%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF.png" data-size="886x594"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%AE%9A%E4%B9%89%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%AE%9A%E4%B9%89%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF_hu54bbd38f5d15333c0043b6aafc08be4c_28800_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%AE%9A%E4%B9%89%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF_hu54bbd38f5d15333c0043b6aafc08be4c_28800_1024x0_resize_box_2.png 1024w"
+				width="886"
+				height="594"
+				loading="lazy"
+				alt="定义用户信息">
+		</a>
+		
+		<figcaption>定义用户信息</figcaption>
+		
+	</figure></p>
+<p>账户创建成功后，右键“属性”，点击“隶属于”选项卡，确认账户的组为 <code>User</code></p>
+<p><figure style="flex-grow: 192; flex-basis: 461px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%BB%84%E4%BF%A1%E6%81%AF.png" data-size="1071x557"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%BB%84%E4%BF%A1%E6%81%AF.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%BB%84%E4%BF%A1%E6%81%AF_huc26651b1df2fa7c346195ad7a853ede3_33907_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%BB%84%E4%BF%A1%E6%81%AF_huc26651b1df2fa7c346195ad7a853ede3_33907_1024x0_resize_box_2.png 1024w"
+				width="1071"
+				height="557"
+				loading="lazy"
+				alt="查看用户组信息">
+		</a>
+		
+		<figcaption>查看用户组信息</figcaption>
+		
+	</figure></p>
+<p>随后注销系统，使用新注册的用户登录。</p>
+<p><figure style="flex-grow: 180; flex-basis: 433px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95.png" data-size="450x249"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95_hu847be02ea54efc372c1b15840074db37_34648_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E4%BD%BF%E7%94%A8%E6%96%B0%E7%94%A8%E6%88%B7%E7%99%BB%E5%BD%95_hu847be02ea54efc372c1b15840074db37_34648_1024x0_resize_box_2.png 1024w"
+				width="450"
+				height="249"
+				loading="lazy"
+				alt="使用新用户登录">
+		</a>
+		
+		<figcaption>使用新用户登录</figcaption>
+		
+	</figure></p>
+<h2 id="尝试修改文件">尝试修改文件</h2>
+<p><code>C:\public\www</code> 目录是由 <code>TargetUser01</code> 用户创建的，右键文件或文件夹点击”属性”，“安全”选项卡。可以看到 <code>Users</code>组仅有读取和运行的权限。</p>
+<p><figure style="flex-grow: 129; flex-basis: 311px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7.png" data-size="830x639"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7_hub1f2ae2e3756544f86918c5567465f64_43900_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E7%BC%96%E8%BE%91%E6%96%87%E4%BB%B6%E5%B1%9E%E6%80%A7_hub1f2ae2e3756544f86918c5567465f64_43900_1024x0_resize_box_2.png 1024w"
+				width="830"
+				height="639"
+				loading="lazy"
+				alt="编辑文件属性">
+		</a>
+		
+		<figcaption>编辑文件属性</figcaption>
+		
+	</figure></p>
+<p><figure style="flex-grow: 149; flex-basis: 359px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90.png" data-size="950x635"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90_hu780aff0574fa14de247b88fbe0dbd7ef_54202_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9F%A5%E7%9C%8B%E6%96%87%E4%BB%B6%E6%9D%83%E9%99%90_hu780aff0574fa14de247b88fbe0dbd7ef_54202_1024x0_resize_box_2.png 1024w"
+				width="950"
+				height="635"
+				loading="lazy"
+				alt="查看文件权限">
+		</a>
+		
+		<figcaption>查看文件权限</figcaption>
+		
+	</figure></p>
+<p>尝试编辑 <code>index.php</code> 文件并保存后会提示“不能创建文件”，这是因为目前所使用的 <code>TargetUser02</code> 用户没有写入权限。使用其他编辑器（如 Notepad++）则会提示使用管理员模式进行编辑。</p>
+<p><figure style="flex-grow: 178; flex-basis: 429px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%B0%9D%E8%AF%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6.png" data-size="1205x674"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%B0%9D%E8%AF%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%B0%9D%E8%AF%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6_hu044d03b2ff97ed54401bf66b36220bfb_19422_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E5%B0%9D%E8%AF%95%E4%BF%9D%E5%AD%98%E6%96%87%E4%BB%B6_hu044d03b2ff97ed54401bf66b36220bfb_19422_1024x0_resize_box_2.png 1024w"
+				width="1205"
+				height="674"
+				loading="lazy"
+				alt="尝试保存文件">
+		</a>
+		
+		<figcaption>尝试保存文件</figcaption>
+		
+	</figure></p>
+<p>想要编辑文件则需要为 <code>Users</code> 组或 <code>TargetUser02</code> 用户新增权限。</p>
+<p>方法一：为整个 <code>Users</code> 组新增写入权限。</p>
+<p><figure style="flex-grow: 127; flex-basis: 306px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E8%B5%8B%E4%BA%88User%E7%BB%84%E6%9D%83%E9%99%90.png" data-size="848x665"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E8%B5%8B%E4%BA%88User%E7%BB%84%E6%9D%83%E9%99%90.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E8%B5%8B%E4%BA%88User%E7%BB%84%E6%9D%83%E9%99%90_hu417c053a9a2afe0742500ccd8147a951_48679_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E8%B5%8B%E4%BA%88User%E7%BB%84%E6%9D%83%E9%99%90_hu417c053a9a2afe0742500ccd8147a951_48679_1024x0_resize_box_2.png 1024w"
+				width="848"
+				height="665"
+				loading="lazy"
+				alt="赋予User组权限">
+		</a>
+		
+		<figcaption>赋予User组权限</figcaption>
+		
+	</figure></p>
+<p>方法二：将 <code>TargetUser02</code> 用户设置为文件的所有者之一。</p>
+<p><figure style="flex-grow: 175; flex-basis: 421px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9B%B4%E6%94%B9%E6%89%80%E6%9C%89%E8%80%85.png" data-size="1243x708"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9B%B4%E6%94%B9%E6%89%80%E6%9C%89%E8%80%85.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9B%B4%E6%94%B9%E6%89%80%E6%9C%89%E8%80%85_hu583dc583b92d7de48de4fd0d2b1492d9_67056_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%9B%B4%E6%94%B9%E6%89%80%E6%9C%89%E8%80%85_hu583dc583b92d7de48de4fd0d2b1492d9_67056_1024x0_resize_box_2.png 1024w"
+				width="1243"
+				height="708"
+				loading="lazy"
+				alt="更改所有者">
+		</a>
+		
+		<figcaption>更改所有者</figcaption>
+		
+	</figure></p>
+<p>测试结果：</p>
+<p><figure style="flex-grow: 180; flex-basis: 432px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%B5%8B%E8%AF%95%E6%9B%B4%E6%94%B9%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C.png" data-size="1171x650"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%B5%8B%E8%AF%95%E6%9B%B4%E6%94%B9%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%B5%8B%E8%AF%95%E6%9B%B4%E6%94%B9%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C_hu769540b0e0a6660ef641a61a408cfe70_48632_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-ntfs-%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/WIN2003_NTFS/%E6%B5%8B%E8%AF%95%E6%9B%B4%E6%94%B9%E5%90%8E%E7%9A%84%E7%BB%93%E6%9E%9C_hu769540b0e0a6660ef641a61a408cfe70_48632_1024x0_resize_box_2.png 1024w"
+				width="1171"
+				height="650"
+				loading="lazy"
+				alt="测试更改后的结果">
+		</a>
+		
+		<figcaption>测试更改后的结果</figcaption>
+		
+	</figure></p>
+<h2 id="后记">后记</h2>
+<p>如果目录下的所有文件都没有写入权限，则需对父目录进行权限增加或所有者修改的操作，具体方法与上述类似，不再赘述。另外，充分利用文件权限管理，可以对单个或多个用户及组进行权限限制。</p>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ntfs/">ntfs</a>
+        
+            <a href="/tags/windows-server/">windows server</a>
+        
+            <a href="/tags/security/">security</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-rdp-%E5%AE%89%E5%85%A8%E5%AE%9E%E8%B7%B5ms12-020-%E5%A4%8D%E7%8E%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-rdp-%E5%AE%89%E5%85%A8%E5%AE%9E%E8%B7%B5ms12-020-%E5%A4%8D%E7%8E%B0/WIN2003_RDP/%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8.4f49ef6b18dc5672b294067cb59154c5_hu1d1f295423a2de99b56c05bc69e78af2_61603_250x150_fill_box_smart1_2.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-T0nvaxjcVnKylAZ8tZFUxQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【实验笔记】Windows Server 2003 RDP 安全实践（MS12-020 复现）</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8E-apache-mysql-php-%E7%9A%84-web-%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8E-apache-mysql-php-%E7%9A%84-web-%E6%9C%8D%E5%8A%A1%E5%99%A8/WIN2003_WAMP/Apache_%E9%85%8D%E7%BD%AE%E5%AE%8C%E6%88%90.22cebface1fd4dcf2655569349dbab69_huaaa0ab45f46e881b5bd8605a6864841e_104061_250x150_fill_box_smart1_2.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-Is6/rOH9Tc8mVVaTSduraQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【实验笔记】Windows Server 2003 搭建基于 Apache &#43; MySQL &#43; PHP 的 Web 服务器</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/_hu095f89328f68736680e951553319dfea_72491_70f6acf5b252e1ea0da37106cbc5b8a1.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-88m/9LXuVqoY7SBjYA3ILQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【实验笔记】Windows Server 2003 管理用户和组</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 E#Index
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.3.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
