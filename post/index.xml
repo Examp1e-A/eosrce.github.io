@@ -6,7 +6,34 @@
     <description>Recent content in Posts on E#Index</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Mon, 11 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://eosrce.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 20 Oct 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://eosrce.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【实验笔记】Windows Server 2003 RDP 安全实践（MS12-020 复现）</title>
+      <link>https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-rdp-%E5%AE%89%E5%85%A8%E5%AE%9E%E8%B7%B5ms12-020-%E5%A4%8D%E7%8E%B0/</link>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-rdp-%E5%AE%89%E5%85%A8%E5%AE%9E%E8%B7%B5ms12-020-%E5%A4%8D%E7%8E%B0/</guid>
+      <description>&lt;p&gt;简介&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【实验笔记】Windows Server 2003 搭建基于 Apache &#43; MySQL &#43; PHP 的 Web 服务器</title>
+      <link>https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8E-apache-mysql-php-%E7%9A%84-web-%E6%9C%8D%E5%8A%A1%E5%99%A8/</link>
+      <pubDate>Tue, 20 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8E-apache-mysql-php-%E7%9A%84-web-%E6%9C%8D%E5%8A%A1%E5%99%A8/</guid>
+      <description>&lt;p&gt;简介&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>【实验笔记】Windows Server 2003 管理用户和组</title>
+      <link>https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/</link>
+      <pubDate>Wed, 02 Sep 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/</guid>
+      <description>&lt;p&gt;简介&lt;/p&gt;</description>
+    </item>
+    
     <item>
       <title>Markdown Syntax Guide</title>
       <link>https://eosrce.com/p/markdown-syntax-guide/</link>

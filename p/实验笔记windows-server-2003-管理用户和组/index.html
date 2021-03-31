@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='管理用户和组'><title>【实验笔记】Windows Server 2003 管理用户和组</title>
+
+<link rel='canonical' href='https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='【实验笔记】Windows Server 2003 管理用户和组'>
+<meta property='og:description' content='管理用户和组'>
+<meta property='og:url' content='https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/'>
+<meta property='og:site_name' content='E#Index'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='gpedit' /><meta property='article:tag' content='windows server' /><meta property='article:tag' content='security' /><meta property='article:published_time' content='2020-09-02T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2020-09-02T00:00:00&#43;00:00'/><meta property='og:image' content='https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/%E4%BF%AE%E6%94%B9%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D.png' />
+<meta name="twitter:title" content="【实验笔记】Windows Server 2003 管理用户和组">
+<meta name="twitter:description" content="管理用户和组"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/%E4%BF%AE%E6%94%B9%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D.png' />
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu613943a9fc508fb36b4a333ce421fcf4_1176716_300x0_resize_box_2.png" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+                    <span class="emoji">🔰</span>
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="https://eosrce.com">E#Index</a></h1>
+        <h2 class="site-description">涸泽而渔。</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/archives/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>暗色模式</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="https://eosrce.com" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/">
+                <img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/%E4%BF%AE%E6%94%B9%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D_hu095f89328f68736680e951553319dfea_72491_800x0_resize_box_2.png"
+                        srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/%E4%BF%AE%E6%94%B9%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D_hu095f89328f68736680e951553319dfea_72491_800x0_resize_box_2.png 800w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/%E4%BF%AE%E6%94%B9%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D_hu095f89328f68736680e951553319dfea_72491_1600x0_resize_box_2.png 1600w"
+                        width="800" 
+                        height="804" 
+                        loading="lazy"
+                        alt="Featured image of post 【实验笔记】Windows Server 2003 管理用户和组" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/note/" >
+                note
+            </a>
+        
+            <a href="/categories/test/" style="background-color: #2a9d8f; color: #fff;">
+                Test
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/">【实验笔记】Windows Server 2003 管理用户和组</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        管理用户和组
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Sep 02, 2020</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p>简介</p>
+<h2 id="前置知识">前置知识</h2>
+<blockquote>
+<p>本地用户和组位于<a class="link" href="https://baike.baidu.com/item/%e8%ae%a1%e7%ae%97%e6%9c%ba%e7%ae%a1%e7%90%86/3550191"  target="_blank" rel="noopener"
+    >计算机管理</a>中，用户可以使用这一组管理工具来管理单台本地或远程计算机。可以使用本地用户和组保护并管理存储在本地计算机上的用户帐户和组。可以在特定计算机上（只能是这台计算机）分配本地用户帐户或组帐户的权限和权利。</p>
+<p>通过本地用户和组，可以为用户和组分配权利和权限，从而限制用户和组执行某些操作的能力。权利可授权用户在计算机上执行某些操作，如<a class="link" href="https://baike.baidu.com/item/%e5%a4%87%e4%bb%bd%e6%96%87%e4%bb%b6/7259066"  target="_blank" rel="noopener"
+    >备份文件</a>和文件夹或者关机。权限是与对象（通常是文件、文件夹或打印机）相关联的一种规则，它规定哪些用户可以访问该对象以及以何种方式访问。</p>
+<p>（摘自 <a class="link" href="[https://baike.baidu.com/item/%E6%9C%AC%E5%9C%B0%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84]%28https://baike.baidu.com/item/%e6%9c%ac%e5%9c%b0%e7%94%a8%e6%88%b7%e5%92%8c%e7%bb%84%29" >本地用户和组_百度百科</a>）</p>
+<p><strong>默认用户帐户</strong>：</p>
+<p>Administrator（管理员用户）默认的管理员用户。无法删除此帐户，为了安全建议改名。</p>
+<p>Guest（来宾用户）默认是禁用的，提供给没有帐户的用户来临时使用，它只拥有有限权限。无法删除。</p>
+<p><strong>常见内置组</strong>：</p>
+<p>Administrators：此组的成员具有对计算机的完全控制权限，并且他们可以根据需要向用户分配用户权限和访问控制权限。</p>
+<p>Backup Operators：此组的成员可以备份和还原计算机上的文件，而不管保护这些文件的权限如何。这是因为执行备份任务的权利要高于所有文件权限。此组的成员无法更改安全设置。</p>
+<p>Guests：该组的成员拥有一个在登录时创建的临时配置文件，在注销时，此配置文件将被删除。来宾帐户（默认情况下已禁用）也是该组的默认成员。</p>
+<p>Network Configuration Operators：该组的成员可以更改 TCP/IP 设置，并且可以更新和发布 TCP/IP 地址。该组中没有默认的成员。</p>
+<p>Power Users：默认情况下，该组的成员拥有不高于标准用户帐户的用户权限或权限。Power Users 组专门为用户提供特定的管理员权利和权限执行常见的系统任务。在此版本 Windows 中，标准用户帐户具有执行最常见配置任务的能力，例如更改时区。（为简化组即将被淘汰。）</p>
+<p>Remote Desktop Users：该组的成员可以远程登录计算机。</p>
+<p>Users：新用户的默认组。该组的成员可以执行一些常见任务，例如运行应用程序、使用本地和网络打印机以及锁定计算机。该组的成员无法共享目录或创建本地打印机。</p>
+<p>Print Operators：具有管理打印机的权限。</p>
+</blockquote>
+<h2 id="修改默认的管理员用户名">修改默认的管理员用户名</h2>
+<p>Win + R，输入 gpedit.msc 进入 <strong>组策略编辑器</strong>。</p>
+<p>依次展开 计算机配置 - Windows 设置 - 安全设置 - 本地策略 - 安全选项，找到 <strong>账户：重命名系统管理员账户</strong> 一列，修改右侧的内容。</p>
+<p><figure style="flex-grow: 99; flex-basis: 238px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/%E4%BF%AE%E6%94%B9%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D.png" data-size="893x897"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/%E4%BF%AE%E6%94%B9%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/%E4%BF%AE%E6%94%B9%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D_hu095f89328f68736680e951553319dfea_72491_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/%E4%BF%AE%E6%94%B9%E7%AE%A1%E7%90%86%E5%91%98%E8%B4%A6%E6%88%B7%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D_hu095f89328f68736680e951553319dfea_72491_1024x0_resize_box_2.png 1024w"
+				width="893"
+				height="897"
+				loading="lazy"
+				alt="修改管理员账户的用户名">
+		</a>
+		
+		<figcaption>修改管理员账户的用户名</figcaption>
+		
+	</figure></p>
+<h2 id="使用-cmd-添加新的用户并设置为管理员账户">使用 cmd 添加新的用户并设置为管理员账户</h2>
+<p>Win + R，输入 cmd 进入 <strong>命令提示符</strong>。</p>
+<p>输入 <strong>net user</strong> 可查看系统中已存在的用户。</p>
+<p><figure style="flex-grow: 520; flex-basis: 1248px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E5%91%BD%E4%BB%A4.png" data-size="640x123"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E5%91%BD%E4%BB%A4.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E5%91%BD%E4%BB%A4_hud50c5f0c9539a651c77b7bbbd3a2479c_4857_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E5%91%BD%E4%BB%A4_hud50c5f0c9539a651c77b7bbbd3a2479c_4857_1024x0_resize_box_2.png 1024w"
+				width="640"
+				height="123"
+				loading="lazy"
+				alt="net_user命令">
+		</a>
+		
+		<figcaption>net_user命令</figcaption>
+		
+	</figure></p>
+<p>另外，在 <strong>net user</strong> 后追加用户名（即 **net user 用户名 **）可查询该用户的详细信息。</p>
+<p><figure style="flex-grow: 118; flex-basis: 284px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.png" data-size="502x423"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF_huca55d8e2bc2507cdf57ff86d5b315bd0_18423_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E7%9A%84%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF_huca55d8e2bc2507cdf57ff86d5b315bd0_18423_1024x0_resize_box_2.png 1024w"
+				width="502"
+				height="423"
+				loading="lazy"
+				alt="net_user查看用户的详细信息">
+		</a>
+		
+		<figcaption>net_user查看用户的详细信息</figcaption>
+		
+	</figure></p>
+<p>使用 <strong>net user 用户名 密码 /add</strong> 可以创建一个新的用户，这个用户默认属于 Users 权限组。</p>
+<p><figure style="flex-grow: 1540; flex-basis: 3697px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E6%96%B0%E7%94%A8%E6%88%B7.png" data-size="570x37"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E6%96%B0%E7%94%A8%E6%88%B7.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E6%96%B0%E7%94%A8%E6%88%B7_hu1483810254cda595966de6ffa6b78329_2284_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E6%96%B0%E7%94%A8%E6%88%B7_hu1483810254cda595966de6ffa6b78329_2284_1024x0_resize_box_2.png 1024w"
+				width="570"
+				height="37"
+				loading="lazy"
+				alt="net_user添加一个新用户">
+		</a>
+		
+		<figcaption>net_user添加一个新用户</figcaption>
+		
+	</figure></p>
+<p>使用先前提到的 <strong>net user 用户名</strong> 查看这个新增用户的信息，可以得知它的用户组为 <strong>Users</strong>。</p>
+<p><figure style="flex-grow: 117; flex-basis: 281px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E6%96%B0%E5%A2%9E%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF.png" data-size="492x420"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E6%96%B0%E5%A2%9E%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E6%96%B0%E5%A2%9E%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF_hu1f661eee87eb626878bb4c9f9ad850db_16581_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E6%96%B0%E5%A2%9E%E7%94%A8%E6%88%B7%E4%BF%A1%E6%81%AF_hu1f661eee87eb626878bb4c9f9ad850db_16581_1024x0_resize_box_2.png 1024w"
+				width="492"
+				height="420"
+				loading="lazy"
+				alt="net_user查看新增用户信息">
+		</a>
+		
+		<figcaption>net_user查看新增用户信息</figcaption>
+		
+	</figure></p>
+<p>想要提升为管理员账户，只需要将其添加进另一个用户组。使用 <strong>net localgroup 组名 用户名 /add</strong>  来让这个用户成为管理员用户。</p>
+<p><figure style="flex-grow: 1124; flex-basis: 2698px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_localgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E5%88%B0%E7%BB%84.png" data-size="641x57"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_localgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E5%88%B0%E7%BB%84.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_localgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E5%88%B0%E7%BB%84_hu008eba4f2694a6a9a22131ccd4c48103_2975_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_localgroup%E6%B7%BB%E5%8A%A0%E7%94%A8%E6%88%B7%E5%88%B0%E7%BB%84_hu008eba4f2694a6a9a22131ccd4c48103_2975_1024x0_resize_box_2.png 1024w"
+				width="641"
+				height="57"
+				loading="lazy"
+				alt="net_localgroup添加用户到组">
+		</a>
+		
+		<figcaption>net_localgroup添加用户到组</figcaption>
+		
+	</figure></p>
+<p>此时查看用户信息，会发现 <strong>本地组成员</strong> 多出了一个 <strong>Administrators</strong> 组。</p>
+<p><figure style="flex-grow: 117; flex-basis: 282px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E6%96%B0%E5%A2%9E%E7%9A%84%E7%BB%84%E4%BF%A1%E6%81%AF.png" data-size="495x421"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E6%96%B0%E5%A2%9E%E7%9A%84%E7%BB%84%E4%BF%A1%E6%81%AF.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E6%96%B0%E5%A2%9E%E7%9A%84%E7%BB%84%E4%BF%A1%E6%81%AF_hu957434547b08d11c00ed1a264d6690d4_17534_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E6%96%B0%E5%A2%9E%E7%9A%84%E7%BB%84%E4%BF%A1%E6%81%AF_hu957434547b08d11c00ed1a264d6690d4_17534_1024x0_resize_box_2.png 1024w"
+				width="495"
+				height="421"
+				loading="lazy"
+				alt="net_user查看用户新增的组信息">
+		</a>
+		
+		<figcaption>net_user查看用户新增的组信息</figcaption>
+		
+	</figure></p>
+<p>接下来把这个管理员用户从默认的 <strong>Users</strong> 组中删除，使用 <strong>net localgroup 组名 用户名 /del</strong> 即可。</p>
+<p><strong>/add</strong> 为添加，同理， <strong>/del</strong> 即为删除(Delete)。</p>
+<p><figure style="flex-grow: 1987; flex-basis: 4770px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E5%B0%86%E7%94%A8%E6%88%B7%E4%BB%8E%E7%BB%84%E5%88%A0%E9%99%A4.png" data-size="636x32"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E5%B0%86%E7%94%A8%E6%88%B7%E4%BB%8E%E7%BB%84%E5%88%A0%E9%99%A4.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E5%B0%86%E7%94%A8%E6%88%B7%E4%BB%8E%E7%BB%84%E5%88%A0%E9%99%A4_hu3682be1077c095e1690d82508e35a1ec_2411_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E5%B0%86%E7%94%A8%E6%88%B7%E4%BB%8E%E7%BB%84%E5%88%A0%E9%99%A4_hu3682be1077c095e1690d82508e35a1ec_2411_1024x0_resize_box_2.png 1024w"
+				width="636"
+				height="32"
+				loading="lazy"
+				alt="net_user将用户从组删除">
+		</a>
+		
+		<figcaption>net_user将用户从组删除</figcaption>
+		
+	</figure></p>
+<p>删除后的结果：</p>
+<p><figure style="flex-grow: 117; flex-basis: 282px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E6%9C%80%E7%BB%88%E7%9A%84%E4%BF%A1%E6%81%AF.png" data-size="498x423"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E6%9C%80%E7%BB%88%E7%9A%84%E4%BF%A1%E6%81%AF.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E6%9C%80%E7%BB%88%E7%9A%84%E4%BF%A1%E6%81%AF_hu7ec289d0c28acc4ce5700b5793fcb37b_16822_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E6%9F%A5%E7%9C%8B%E7%94%A8%E6%88%B7%E6%9C%80%E7%BB%88%E7%9A%84%E4%BF%A1%E6%81%AF_hu7ec289d0c28acc4ce5700b5793fcb37b_16822_1024x0_resize_box_2.png 1024w"
+				width="498"
+				height="423"
+				loading="lazy"
+				alt="net_user查看用户最终的信息">
+		</a>
+		
+		<figcaption>net_user查看用户最终的信息</figcaption>
+		
+	</figure></p>
+<p>关于 <strong>net user</strong> 可通过 <strong>net user /?</strong> 获取语法提示，更详细的使用方法可自行搜索或查看官方文档。</p>
+<p><figure style="flex-grow: 336; flex-basis: 807px">
+		<a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E7%9A%84%E8%AF%AD%E6%B3%95%E6%8F%90%E7%A4%BA.png" data-size="471x140"><img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E7%9A%84%E8%AF%AD%E6%B3%95%E6%8F%90%E7%A4%BA.png"
+				srcset="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E7%9A%84%E8%AF%AD%E6%B3%95%E6%8F%90%E7%A4%BA_hufe6a081746809aa7524048fa7366e65e_5616_480x0_resize_box_2.png 480w, /p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E7%AE%A1%E7%90%86%E7%94%A8%E6%88%B7%E5%92%8C%E7%BB%84/WIN2003_GPEDIT/net_user%E7%9A%84%E8%AF%AD%E6%B3%95%E6%8F%90%E7%A4%BA_hufe6a081746809aa7524048fa7366e65e_5616_1024x0_resize_box_2.png 1024w"
+				width="471"
+				height="140"
+				loading="lazy"
+				alt="net_user的语法提示">
+		</a>
+		
+		<figcaption>net_user的语法提示</figcaption>
+		
+	</figure></p>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/gpedit/">gpedit</a>
+        
+            <a href="/tags/windows-server/">windows server</a>
+        
+            <a href="/tags/security/">security</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">相关文章</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-rdp-%E5%AE%89%E5%85%A8%E5%AE%9E%E8%B7%B5ms12-020-%E5%A4%8D%E7%8E%B0/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-rdp-%E5%AE%89%E5%85%A8%E5%AE%9E%E8%B7%B5ms12-020-%E5%A4%8D%E7%8E%B0/WIN2003_RDP/%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8.4f49ef6b18dc5672b294067cb59154c5_hu1d1f295423a2de99b56c05bc69e78af2_61603_250x150_fill_box_smart1_2.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-T0nvaxjcVnKylAZ8tZFUxQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【实验笔记】Windows Server 2003 RDP 安全实践（MS12-020 复现）</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8E-apache-mysql-php-%E7%9A%84-web-%E6%9C%8D%E5%8A%A1%E5%99%A8/">
+        
+        
+            <div class="article-image">
+                <img src="/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0windows-server-2003-%E6%90%AD%E5%BB%BA%E5%9F%BA%E4%BA%8E-apache-mysql-php-%E7%9A%84-web-%E6%9C%8D%E5%8A%A1%E5%99%A8/WIN2003_WAMP/Apache_%E9%85%8D%E7%BD%AE%E5%AE%8C%E6%88%90.22cebface1fd4dcf2655569349dbab69_huaaa0ab45f46e881b5bd8605a6864841e_104061_250x150_fill_box_smart1_2.png" 
+                        width="250" 
+                        height="150" 
+                        loading="lazy" 
+                        data-key="" 
+                        data-hash="md5-Is6/rOH9Tc8mVVaTSduraQ==">
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">【实验笔记】Windows Server 2003 搭建基于 Apache &#43; MySQL &#43; PHP 的 Web 服务器</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+        
+    <div class="disqus-container">
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "hugo-theme-stack" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (DISQUS) {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 E#Index
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.3.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
