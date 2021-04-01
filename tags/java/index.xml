@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Java on E#Index</title>
+    <link>https://eosrce.com/tags/java/</link>
+    <description>Recent content in Java on E#Index</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Mon, 29 Mar 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://eosrce.com/tags/java/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>【实验笔记】Firefox 插件、Python、Java 等基础配置</title>
+      <link>https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0firefox-%E6%8F%92%E4%BB%B6pythonjava-%E7%AD%89%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Mon, 29 Mar 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://eosrce.com/p/%E5%AE%9E%E9%AA%8C%E7%AC%94%E8%AE%B0firefox-%E6%8F%92%E4%BB%B6pythonjava-%E7%AD%89%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE/</guid>
+      <description>&lt;p&gt;简介&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
